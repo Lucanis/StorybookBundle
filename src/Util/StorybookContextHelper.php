@@ -16,7 +16,7 @@ final class StorybookContextHelper
     public static function addStorybookContext(array &$variables, StorybookContext $context): void
     {
         if (true === self::hasStorybookContext($variables)) {
-            throw new \InvalidArgumentException('Storybook context already exists.');
+            return;
         }
 
         $variables[self::CONTEXT_KEY] = $context;
