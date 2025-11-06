@@ -13,48 +13,8 @@ const config: StorybookConfig = {
       files: "**/*.@(mdx|stories.@(js|ts))",
     },
     {
-      directory: "../template-stories/lib/preview-api",
-      titlePrefix: "lib/preview-api",
-      files: "**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
-    },
-    {
-      directory: "../template-stories/addons/links",
-      titlePrefix: "addons/links",
-      files: "**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
-    },
-    {
-      directory: "../template-stories/addons/actions",
-      titlePrefix: "addons/actions",
-      files: "**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
-    },
-    {
-      directory: "../template-stories/addons/backgrounds",
-      titlePrefix: "addons/backgrounds",
-      files: "**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
-    },
-    {
-      directory: "../template-stories/addons/controls",
-      titlePrefix: "addons/controls",
-      files: "**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
-    },
-    {
-      directory: "../template-stories/addons/docs",
-      titlePrefix: "addons/docs",
-      files: "**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
-    },
-    {
-      directory: "../template-stories/addons/toolbars",
-      titlePrefix: "addons/toolbars",
-      files: "**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
-    },
-    {
-      directory: "../template-stories/addons/viewport",
-      titlePrefix: "addons/viewport",
-      files: "**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
-    },
-    {
-      directory: "../template-stories/addons/interactions",
-      titlePrefix: "addons/interactions",
+      directory: "../stories",
+      titlePrefix: "stories",
       files: "**/*.@(mdx|stories.@(js|jsx|ts|tsx))",
     },
   ],
@@ -77,8 +37,7 @@ const config: StorybookConfig = {
   },
   previewAnnotations: [
     "./templates/components/Storybook",
-    "./template-stories/lib/preview-api/preview.ts",
-    "./template-stories/addons/toolbars/preview.ts",
+    "./stories/preview.ts",
   ],
 };
 
