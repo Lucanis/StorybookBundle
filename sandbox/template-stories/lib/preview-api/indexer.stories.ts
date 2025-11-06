@@ -1,24 +1,24 @@
-import { expect } from '@storybook/test';
-import { global as globalThis } from '@storybook/global';
-import type { PlayFunctionContext } from '@storybook/types';
+import { expect } from "storybook/test";
+import { global as globalThis } from "@storybook/global";
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
 
 export default {
   component: globalThis.Components.Pre,
-  args: { text: 'Check that id assertions in interaction tests are passing' },
-  id: 'indexer-custom-meta-id',
+  args: { text: "Check that id assertions in interaction tests are passing" },
+  id: "indexer-custom-meta-id",
 };
 
 export const Default = {
-  play: async ({ id }: PlayFunctionContext<any>) => {
-    await expect(id).toBe('indexer-custom-meta-id--default');
+  play: async ({ id }: StoryContext) => {
+    await expect(id).toBe("indexer-custom-meta-id--default");
   },
 };
 
 export const CustomParametersId = {
   parameters: {
-    __id: 'custom-id',
+    __id: "custom-id",
   },
-  play: async ({ id }: PlayFunctionContext<any>) => {
-    await expect(id).toBe('custom-id');
+  play: async ({ id }: StoryContext) => {
+    await expect(id).toBe("custom-id");
   },
 };

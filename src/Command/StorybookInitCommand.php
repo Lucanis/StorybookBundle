@@ -18,7 +18,7 @@ use Symfonycasts\TailwindBundle\SymfonycastsTailwindBundle;
 #[AsCommand(name: 'storybook:init', description: 'Initialize Storybook with basic configuration files.')]
 class StorybookInitCommand extends Command
 {
-    public const STORYBOOK_VERSION = '^8.1.3';
+    public const STORYBOOK_VERSION = '^10';
     private SymfonyStyle $io;
 
     public function __construct(private readonly string $projectDir)
@@ -90,20 +90,16 @@ HELP
 
         $packageJsonData['devDependencies'] ??= [];
         $packageJsonData['devDependencies'] += [
-            '@sensiolabs/storybook-symfony-webpack5' => 'file:vendor/sensiolabs/storybook-bundle/storybook',
-            '@storybook/addon-essentials' => self::STORYBOOK_VERSION,
+            '@sensiolabs/storybook-symfony-webpack5' => 'file:vendor/sensiolabs/storybook-bundle/symfony-weback5',
             '@storybook/addon-links' => self::STORYBOOK_VERSION,
-            '@storybook/addon-webpack5-compiler-swc' => '^1.0.2',
-            '@storybook/blocks' => self::STORYBOOK_VERSION,
-            '@storybook/cli' => self::STORYBOOK_VERSION,
-            'typescript' => '^5.4.2',
-            'webpack' => '^5.90.3',
+            'dotenv' => '^17.2.3',
+            '@storybook/addon-webpack5-compiler-swc' => '^4.0.1',
         ];
 
         $packageJsonData['scripts'] ??= [];
         $packageJsonData['scripts'] += [
-            'storybook' => 'sb dev -p 6006 --no-open --disable-telemetry',
-            'build-storybook' => 'sb build',
+            'storybook' => 'storybook dev -p 6006 --no-open --disable-telemetry',
+            'build-storybook' => 'storybook build',
         ];
 
         $packageJsonContent = json_encode($packageJsonData, \JSON_PRETTY_PRINT | \JSON_THROW_ON_ERROR | \JSON_UNESCAPED_SLASHES);

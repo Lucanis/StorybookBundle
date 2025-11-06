@@ -1,5 +1,6 @@
-import { global as globalThis } from '@storybook/global';
-import type { PartialStoryFn, StoryContext } from '@storybook/types';
+import { global as globalThis } from "@storybook/global";
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
+import type { PartialStoryFn } from "storybook/internal/types";
 
 export default {
   component: globalThis.Components.Pre,
@@ -11,23 +12,29 @@ export default {
 
 export const MutuallyExclusiveModes = {
   argTypes: {
-    mutuallyExclusiveA: { control: 'text', if: { arg: 'mutuallyExclusiveB', truthy: false } },
-    mutuallyExclusiveB: { control: 'text', if: { arg: 'mutuallyExclusiveA', truthy: false } },
+    mutuallyExclusiveA: {
+      control: "text",
+      if: { arg: "mutuallyExclusiveB", truthy: false },
+    },
+    mutuallyExclusiveB: {
+      control: "text",
+      if: { arg: "mutuallyExclusiveA", truthy: false },
+    },
   },
 };
 
 export const ToggleControl = {
   argTypes: {
     colorMode: {
-      control: 'boolean',
+      control: "boolean",
     },
     dynamicText: {
-      if: { arg: 'colorMode', truthy: false },
-      control: 'text',
+      if: { arg: "colorMode", truthy: false },
+      control: "text",
     },
     dynamicColor: {
-      if: { arg: 'colorMode' },
-      control: 'color',
+      if: { arg: "colorMode" },
+      control: "color",
     },
   },
 };
@@ -35,28 +42,31 @@ export const ToggleControl = {
 export const ToggleExpandCollapse = {
   argTypes: {
     advanced: {
-      control: 'boolean',
+      control: "boolean",
     },
     margin: {
-      control: 'number',
-      if: { arg: 'advanced' },
+      control: "number",
+      if: { arg: "advanced" },
     },
     padding: {
-      control: 'number',
-      if: { arg: 'advanced' },
+      control: "number",
+      if: { arg: "advanced" },
     },
     cornerRadius: {
-      control: 'number',
-      if: { arg: 'advanced' },
+      control: "number",
+      if: { arg: "advanced" },
     },
   },
 };
 
 export const GlobalBased = {
   argTypes: {
-    ifThemeExists: { control: 'text', if: { global: 'theme' } },
-    ifThemeNotExists: { control: 'text', if: { global: 'theme', exists: false } },
-    ifLightTheme: { control: 'text', if: { global: 'theme', eq: 'light' } },
-    ifNotLightTheme: { control: 'text', if: { global: 'theme', neq: 'light' } },
+    ifThemeExists: { control: "text", if: { global: "theme" } },
+    ifThemeNotExists: {
+      control: "text",
+      if: { global: "theme", exists: false },
+    },
+    ifLightTheme: { control: "text", if: { global: "theme", eq: "light" } },
+    ifNotLightTheme: { control: "text", if: { global: "theme", neq: "light" } },
   },
 };

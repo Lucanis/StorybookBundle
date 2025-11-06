@@ -1,11 +1,12 @@
-import type { PartialStoryFn, StoryContext } from '@storybook/types';
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
+import type { PartialStoryFn } from "storybook/internal/types";
 
 export const parameters = {
-  projectParameter: 'projectParameter',
+  projectParameter: "projectParameter",
   storyObject: {
-    a: 'project',
-    b: 'project',
-    c: 'project',
+    a: "project",
+    b: "project",
+    c: "project",
   },
 };
 
@@ -14,16 +15,18 @@ export const loaders = [async () => ({ projectValue: 2 })];
 export const decorators = [
   (storyFn: PartialStoryFn, context: StoryContext) => {
     if (context.parameters.useProjectDecorator)
-      return storyFn({ args: { ...context.args, text: `project ${context.args.text}` } });
+      return storyFn({
+        args: { ...context.args, text: `project ${context.args.text}` },
+      });
     return storyFn();
   },
 ];
 
 export const globals = {
-  foo: 'fooValue',
+  foo: "fooValue",
 };
 
 export const globalTypes = {
-  foo: { defaultValue: 'fooDefaultValue' },
-  bar: { defaultValue: 'barDefaultValue' },
+  foo: { defaultValue: "fooDefaultValue" },
+  bar: { defaultValue: "barDefaultValue" },
 };

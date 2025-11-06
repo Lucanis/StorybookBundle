@@ -1,5 +1,6 @@
-import { global as globalThis } from '@storybook/global';
-import type { PartialStoryFn, StoryContext } from '@storybook/types';
+import { global as globalThis } from "@storybook/global";
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
+import type { PartialStoryFn } from "storybook/internal/types";
 
 export default {
   component: globalThis.Components.Pre,
@@ -16,10 +17,10 @@ export const CustomMatchers = {
         date: /whateverIwant/,
       },
     },
-    docs: { source: { state: 'open' } },
+    docs: { source: { state: "open" } },
   },
   args: {
-    whateverIwant: '10/10/2020',
+    whateverIwant: "10/10/2020",
   },
 };
 
@@ -33,7 +34,7 @@ export const DisabledMatchers = {
     },
   },
   args: {
-    purchaseDate: '10/10/2020',
-    backgroundColor: '#BADA55',
+    purchaseDate: "10/10/2020",
+    backgroundColor: "#BADA55",
   },
 };

@@ -1,7 +1,8 @@
-import { global as globalThis } from '@storybook/global';
-import type { PartialStoryFn, PlayFunctionContext } from '@storybook/types';
-import { useEffect, useState } from '@storybook/preview-api';
-import { within, userEvent } from '@storybook/test';
+import { global as globalThis } from "@storybook/global";
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
+import type { PartialStoryFn } from "storybook/internal/types";
+import { useEffect, useState } from "storybook/preview-api";
+import { within, userEvent } from "storybook/test";
 
 export default {
   component: globalThis.Components.Button,
@@ -22,11 +23,11 @@ export const UseState = {
       });
     },
   ],
-  play: async ({ canvasElement }: PlayFunctionContext<any>) => {
-    const button = await within(canvasElement).findByText('Clicked 0 times');
+  play: async ({ canvasElement }: StoryContext) => {
+    const button = await within(canvasElement).findByText("Clicked 0 times");
 
     await userEvent.click(button);
-    await within(canvasElement).findByText('Clicked 1 times');
+    await within(canvasElement).findByText("Clicked 1 times");
   },
 };
 
@@ -44,7 +45,8 @@ export const UseEffect = {
 
       return story({
         args: {
-          label: count > 0 ? `useEffect worked!` : `useEffect hasn't worked yet!`,
+          label:
+            count > 0 ? `useEffect worked!` : `useEffect hasn't worked yet!`,
           onClick: () => {},
         },
       });

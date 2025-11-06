@@ -1,12 +1,15 @@
-import { global as globalThis } from '@storybook/global';
-import type { PartialStoryFn, PlayFunctionContext, StoryContext } from '@storybook/types';
-import { within, expect } from '@storybook/test';
+import { global as globalThis } from "@storybook/global";
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
+import type { PartialStoryFn } from "storybook/internal/types";
+import { within, expect } from "storybook/test";
 
 export default {
   component: globalThis.Components.Pre,
-  play: async ({ canvasElement, name }: PlayFunctionContext) => {
+  play: async ({ canvasElement, name }: StoryContext) => {
     await expect(
-      JSON.parse(within(canvasElement as HTMLPreElement).getByTestId('pre').innerText)
+      JSON.parse(
+        within(canvasElement as HTMLPreElement).getByTestId("pre").innerText
+      )
     ).toEqual({
       name,
     });

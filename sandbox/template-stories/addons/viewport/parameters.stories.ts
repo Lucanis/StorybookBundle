@@ -1,10 +1,10 @@
-import { global as globalThis } from '@storybook/global';
-import { MINIMAL_VIEWPORTS } from '@storybook/addon-viewport';
+import { global as globalThis } from "@storybook/global";
+import { MINIMAL_VIEWPORTS } from "storybook/viewport";
 
 export default {
   component: globalThis.Components.Button,
   args: {
-    label: 'Click Me!',
+    label: "Click Me!",
   },
   parameters: {
     viewport: {
@@ -30,7 +30,7 @@ export const Orientation = {
   parameters: {
     viewport: {
       defaultViewport: Object.keys(MINIMAL_VIEWPORTS)[0],
-      defaultOrientation: 'landscape',
+      defaultOrientation: "landscape",
     },
   },
 };
@@ -38,15 +38,15 @@ export const Orientation = {
 export const Custom = {
   parameters: {
     viewport: {
-      defaultViewport: 'phone',
+      defaultViewport: "phone",
       viewports: {
         phone: {
-          name: 'Phone Width',
+          name: "Phone Width",
           styles: {
-            height: '600px',
-            width: '100vh',
+            height: "600px",
+            width: "100vh",
           },
-          type: 'mobile',
+          type: "mobile",
         },
       },
     },

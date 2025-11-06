@@ -1,17 +1,18 @@
-import { global as globalThis } from '@storybook/global';
-import type { PlayFunctionContext } from '@storybook/types';
-import { within, waitFor, expect } from '@storybook/test';
+import { global as globalThis } from "@storybook/global";
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
+import type { PartialStoryFn } from "storybook/internal/types";
+import { within, waitFor, expect } from "storybook/test";
 import {
   FORCE_REMOUNT,
   RESET_STORY_ARGS,
   STORY_ARGS_UPDATED,
   UPDATE_STORY_ARGS,
-} from '@storybook/core-events';
+} from "storybook/internal/core-events";
 
 export default {
   component: globalThis.Components.Button,
   args: {
-    label: 'Click me',
+    label: "Click me",
   },
 };
 
@@ -23,12 +24,12 @@ export const ForceRemount = {
    * If the button ALWAYS has focus it means the renderer didn't correctly remount the tree at the FORCE_REMOUNT event
    */
   parameters: { chromatic: { disableSnapshot: true } },
-  play: async ({ canvasElement, id }: PlayFunctionContext<any>) => {
+  play: async ({ canvasElement, id }: StoryContext) => {
     if (window?.navigator.userAgent.match(/StorybookTestRunner/)) {
       return;
     }
     const channel = globalThis.__STORYBOOK_ADDONS_CHANNEL__;
-    const button = await within(canvasElement).findByRole('button');
+    const button = await within(canvasElement).findByRole("button");
 
     await waitFor(() => expect(button).not.toHaveFocus());
     await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -42,7 +43,7 @@ export const ForceRemount = {
 };
 
 export const ChangeArgs = {
-  play: async ({ canvasElement, id }: PlayFunctionContext<any>) => {
+  play: async ({ canvasElement, id }: StoryContext) => {
     const channel = globalThis.__STORYBOOK_ADDONS_CHANNEL__;
 
     await channel.emit(RESET_STORY_ARGS, { storyId: id });
@@ -50,7 +51,7 @@ export const ChangeArgs = {
       channel.once(STORY_ARGS_UPDATED, resolve);
     });
 
-    const button = await within(canvasElement).findByRole('button');
+    const button = await within(canvasElement).findByRole("button");
     await button.focus();
     await expect(button).toHaveFocus();
 
@@ -58,17 +59,25 @@ export const ChangeArgs = {
     // Preact: https://github.com/storybookjs/storybook/issues/19504
 
     // @OVERRIDE Symfony doesn't support this too
-    if (['web-components', 'html', 'preact', 'symfony'].includes(globalThis.storybookRenderer)) return;
+    if (
+      ["web-components", "html", "preact", "symfony"].includes(
+        globalThis.storybookRenderer
+      )
+    )
+      return;
 
     // When we change the args to the button, it should not remount
-    await channel.emit(UPDATE_STORY_ARGS, { storyId: id, updatedArgs: { label: 'New Text' } });
+    await channel.emit(UPDATE_STORY_ARGS, {
+      storyId: id,
+      updatedArgs: { label: "New Text" },
+    });
 
     await within(canvasElement).findByText(/New Text/);
     await expect(button).toHaveFocus();
   },
 };
 
-let loadedLabel = 'Initial';
+let loadedLabel = "Initial";
 
 /**
  * This story demonstrates what happens when rendering (loaders) have side effects, and can possibly interleave with each other
@@ -82,9 +91,12 @@ export const SlowLoader = {
   },
   loaders: [
     async () => {
-      loadedLabel = 'Loading...';
+      loadedLabel = "Loading...";
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      loadedLabel = loadedLabel === 'Loading...' ? 'Loaded.' : 'Error: Interleaved loaders.';
+      loadedLabel =
+        loadedLabel === "Loading..."
+          ? "Loaded."
+          : "Error: Interleaved loaders.";
       return { label: loadedLabel };
     },
   ],

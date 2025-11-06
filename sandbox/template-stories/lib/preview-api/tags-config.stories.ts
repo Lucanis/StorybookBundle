@@ -1,10 +1,11 @@
-import { global as globalThis } from '@storybook/global';
-import type { PartialStoryFn, PlayFunctionContext, StoryContext } from '@storybook/types';
-import { within, expect } from '@storybook/test';
+import { global as globalThis } from "@storybook/global";
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
+import type { PartialStoryFn } from "storybook/internal/types";
+import { within, expect } from "storybook/test";
 
 export default {
   component: globalThis.Components.Pre,
-  tags: ['component-one', 'component-two', 'autodocs'],
+  tags: ["component-one", "component-two", "autodocs"],
   decorators: [
     (storyFn: PartialStoryFn, context: StoryContext) => {
       return storyFn({
@@ -16,28 +17,35 @@ export default {
 };
 
 export const Inheritance = {
-  tags: ['story-one'],
-  play: async ({ canvasElement }: PlayFunctionContext<any>) => {
+  tags: ["story-one"],
+  play: async ({ canvasElement }: StoryContext) => {
     const canvas = within(canvasElement);
-    await expect(JSON.parse(canvas.getByTestId('pre').innerText)).toEqual({
-      tags: ['dev', 'test', 'component-one', 'component-two', 'autodocs', 'story-one'],
+    await expect(JSON.parse(canvas.getByTestId("pre").innerText)).toEqual({
+      tags: [
+        "dev",
+        "test",
+        "component-one",
+        "component-two",
+        "autodocs",
+        "story-one",
+      ],
     });
   },
   parameters: { chromatic: { disable: false } },
 };
 
 export const DocsOnly = {
-  tags: ['docs-only'],
+  tags: ["docs-only"],
 };
 
 export const TestOnly = {
-  tags: ['test-only'],
+  tags: ["test-only"],
 };
 
 export const DevOnly = {
-  tags: ['dev-only'],
+  tags: ["dev-only"],
 };
 
 export const TagRemoval = {
-  tags: ['!component-two'],
+  tags: ["!component-two"],
 };

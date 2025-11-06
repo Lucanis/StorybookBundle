@@ -1,19 +1,22 @@
-import { global as globalThis } from '@storybook/global';
-import type { PartialStoryFn, PlayFunctionContext, StoryContext } from '@storybook/types';
-import { within, expect } from '@storybook/test';
+import { global as globalThis } from "@storybook/global";
+
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
+import type { PartialStoryFn } from "storybook/internal/types";
+
+import { within, expect } from "storybook/test";
 
 const arrows = {
-  ArrowUp: { name: 'ArrowUp' },
-  ArrowDown: { name: 'ArrowDown' },
-  ArrowLeft: { name: 'ArrowLeft' },
-  ArrowRight: { name: 'ArrowRight' },
+  ArrowUp: { name: "ArrowUp" },
+  ArrowDown: { name: "ArrowDown" },
+  ArrowLeft: { name: "ArrowLeft" },
+  ArrowRight: { name: "ArrowRight" },
 };
 
 const labels = {
-  ArrowUp: 'Up',
-  ArrowDown: 'Down',
-  ArrowLeft: 'Left',
-  ArrowRight: 'Right',
+  ArrowUp: "Up",
+  ArrowDown: "Down",
+  ArrowLeft: "Left",
+  ArrowRight: "Right",
 };
 
 export default {
@@ -29,42 +32,46 @@ export default {
 
 export const Single = {
   args: {
-    mappingArg: 'ArrowRight',
+    mappingArg: "ArrowRight",
   },
   argTypes: {
     mappingArg: {
       options: Object.keys(arrows),
       mapping: arrows,
       control: {
-        type: 'select',
+        type: "select",
         labels,
       },
     },
   },
-  play: async ({ canvasElement }: PlayFunctionContext<any>) => {
-    await expect(JSON.parse(within(canvasElement).getByTestId('pre').innerText)).toMatchObject({
-      mappingArg: { name: 'ArrowRight' },
+  play: async ({ canvasElement }: StoryContext) => {
+    await expect(
+      JSON.parse(within(canvasElement).getByTestId("pre").innerText)
+    ).toMatchObject({
+      mappingArg: { name: "ArrowRight" },
     });
   },
 };
 
 export const Multiple = {
   args: {
-    mappingArg: ['ArrowRight', 'ArrowLeft'],
+    mappingArg: ["ArrowRight", "ArrowLeft"],
   },
   argTypes: {
     mappingArg: {
       options: Object.keys(arrows),
       mapping: arrows,
       control: {
-        type: 'multi-select',
+        type: "multi-select",
         labels,
       },
     },
   },
-  play: async ({ canvasElement }: PlayFunctionContext<any>) => {
-    await expect(JSON.parse(within(canvasElement).getByTestId('pre').innerText)).toMatchObject({
-      mappingArg: [{ name: 'ArrowRight' }, { name: 'ArrowLeft' }],
+  play: async ({ canvasElement }: StoryContext) => {
+    await expect(
+      JSON.parse(within(canvasElement).getByTestId("pre").innerText)
+    ).toMatchObject({
+      mappingArg: [{ name: "ArrowRight" }, { name: "ArrowLeft" }],
     });
   },
 };

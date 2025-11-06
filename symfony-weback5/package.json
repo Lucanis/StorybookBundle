@@ -1,0 +1,82 @@
+{
+  "version": "0.0.1",
+  "name": "symfony-webpack5",
+  "packageManager": "yarn@4.9.2",
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "npm run build -- --watch",
+    "prebuild": "node -e \"fs.rmSync('./dist', { recursive: true, force: true })\""
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./node": {
+      "types": "./dist/node/index.d.ts",
+      "default": "./dist/node/index.js"
+    },
+    "./package.json": "./package.json",
+    "./preset": "./dist/preset.js",
+    "./preset-server": {
+      "types": "./dist/preset-server/index.d.ts",
+      "default": "./dist/preset-server/index.js"
+    },
+    "./renderer": {
+      "types": "./dist/renderer/index.d.ts",
+      "default": "./dist/renderer/index.js"
+    },
+    "./renderer/entry-preview": "./dist/renderer/entry-preview.js",
+    "./renderer/entry-preview-docs": "./dist/renderer/entry-preview-docs.js",
+    "./renderer/preset": "./dist/renderer/preset.js",
+    "./builder": {
+      "types": "./dist/builder/index.d.ts",
+      "default": "./dist/builder/index.js"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "template/cli/**/*",
+    "README.md",
+    "*.js",
+    "*.d.ts",
+    "!src/**/*"
+  ],
+  "dependencies": {
+    "@storybook/builder-webpack5": "^10.0.4",
+    "@storybook/core-webpack": "^10.0.4",
+    "@storybook/global": "^5.0.0",
+    "fast-xml-parser": "^5.3.1",
+    "glob": "^11.0.3",
+    "html-entities": "^2.6.0",
+    "html-webpack-plugin": "^5.6.4",
+    "http-proxy-middleware": "^3.0.5",
+    "is-glob": "^4.0.3",
+    "jsdom": "^27.1.0",
+    "unplugin": "^2.3.10",
+    "webpack": "^5.102.1",
+    "webpack-virtual-modules": "^0.6.2"
+  },
+  "devDependencies": {
+    "@types/is-glob": "^4",
+    "@types/jsdom": "^27",
+    "@types/node": "^24.10.0",
+    "storybook": "^10.0.5",
+    "ts-dedent": "^2.0.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "storybook": "*",
+    "typescript": "*"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

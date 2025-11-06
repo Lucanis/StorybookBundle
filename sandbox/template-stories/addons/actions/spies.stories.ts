@@ -1,11 +1,11 @@
-import { global as globalThis } from '@storybook/global';
-import { spyOn } from '@storybook/test';
+import { global as globalThis } from "@storybook/global";
+import { spyOn } from "storybook/test";
 
 const meta = {
   component: globalThis.Components.Button,
   beforeEach() {
-    spyOn(console, 'log').mockName('console.log');
-    console.log('first');
+    spyOn(console, "log").mockName("console.log");
+    console.log("first");
   },
 };
 
@@ -16,12 +16,12 @@ export const ShowSpyOnInActions = {
     chromatic: { disable: true },
   },
   beforeEach() {
-    console.log('second');
+    console.log("second");
   },
   args: {
-    label: 'Button',
+    label: "Button",
     onClick: () => {
-      console.log('third');
+      console.log("third");
     },
   },
 };

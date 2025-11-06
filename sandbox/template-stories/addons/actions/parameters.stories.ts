@@ -1,10 +1,9 @@
-import { global as globalThis } from '@storybook/global';
-import { withActions } from '@storybook/addon-actions/decorator';
+import { global as globalThis } from "@storybook/global";
 
 export default {
   component: globalThis.Components.Button,
   args: {
-    label: 'Click Me!',
+    label: "Click Me!",
   },
   parameters: {
     chromatic: { disable: true },
@@ -13,7 +12,6 @@ export default {
 
 export const Basic = {
   parameters: {
-    handles: [{ click: 'clicked', contextmenu: 'right clicked' }],
+    handles: [{ click: "clicked", contextmenu: "right clicked" }],
   },
-  decorators: [withActions],
 };

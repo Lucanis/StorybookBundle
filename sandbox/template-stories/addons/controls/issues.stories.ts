@@ -1,5 +1,6 @@
-import { global as globalThis } from '@storybook/global';
-import type { PartialStoryFn, StoryContext } from '@storybook/types';
+import { global as globalThis } from "@storybook/global";
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
+import type { PartialStoryFn } from "storybook/internal/types";
 
 export default {
   component: globalThis.Components.Pre,
@@ -11,6 +12,6 @@ export default {
 
 // https://github.com/storybookjs/storybook/issues/14752
 export const MissingRadioOptions = {
-  argTypes: { invalidRadio: { control: 'radio' } },
-  args: { invalidRadio: 'someValue' },
+  argTypes: { invalidRadio: { control: "radio" } },
+  args: { invalidRadio: "someValue" },
 };

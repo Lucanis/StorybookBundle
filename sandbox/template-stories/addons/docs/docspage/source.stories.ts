@@ -1,11 +1,11 @@
-import { global as globalThis } from '@storybook/global';
-import type { StoryContext } from '@storybook/types';
-import dedent from 'ts-dedent';
+import { global as globalThis } from "@storybook/global";
+import type { StoryContext } from "storybook/types";
+import dedent from "ts-dedent";
 
 export default {
   component: globalThis.Components.Button,
-  tags: ['autodocs'],
-  args: { label: 'Click Me!' },
+  tags: ["autodocs"],
+  args: { label: "Click Me!" },
   parameters: { chromatic: { disable: true } },
 };
 
@@ -22,7 +22,7 @@ export const Disabled = {
 export const Code = {
   parameters: {
     docs: {
-      source: { type: 'code' },
+      source: { type: "code" },
     },
   },
 };
@@ -30,7 +30,7 @@ export const Code = {
 export const Custom = {
   parameters: {
     docs: {
-      source: { code: 'custom source' },
+      source: { code: "custom source" },
     },
   },
 };

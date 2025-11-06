@@ -1,34 +1,41 @@
-import { global as globalThis } from '@storybook/global';
-import type {
-  ArgsStoryFn,
-  PartialStoryFn,
-  PlayFunctionContext,
-  StoryContext,
-} from '@storybook/types';
-import { within, expect } from '@storybook/test';
-import { useEffect } from '@storybook/preview-api';
-import { STORY_ARGS_UPDATED, UPDATE_STORY_ARGS, RESET_STORY_ARGS } from '@storybook/core-events';
+import { global as globalThis } from "@storybook/global";
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
+import type { PartialStoryFn } from "storybook/internal/types";
+
+import { within, expect } from "storybook/test";
+import { useEffect } from "storybook/preview-api";
+import {
+  STORY_ARGS_UPDATED,
+  UPDATE_STORY_ARGS,
+  RESET_STORY_ARGS,
+} from "storybook/internal/core-events";
 
 export default {
   component: globalThis.Components.Pre,
   parameters: { useProjectDecorator: true },
   decorators: [
     (storyFn: PartialStoryFn, context: StoryContext) =>
-      storyFn({ args: { ...context.args, text: `component ${context.args.text}` } }),
+      storyFn({
+        args: { ...context.args, text: `component ${context.args.text}` },
+      }),
   ],
 };
 
 export const Inheritance = {
   decorators: [
     (storyFn: PartialStoryFn, context: StoryContext) =>
-      storyFn({ args: { ...context.args, text: `story ${context.args.text}` } }),
+      storyFn({
+        args: { ...context.args, text: `story ${context.args.text}` },
+      }),
   ],
   args: {
-    text: 'starting',
+    text: "starting",
   },
-  play: async ({ canvasElement }: PlayFunctionContext<any>) => {
+  play: async ({ canvasElement }: StoryContext) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByTestId('pre').innerText).toEqual('story component project starting');
+    await expect(canvas.getByTestId("pre").innerText).toEqual(
+      "story component project starting"
+    );
   },
 };
 
@@ -39,7 +46,9 @@ export const Hooks = {
     // decorator that uses hooks
     (storyFn: PartialStoryFn, context: StoryContext) => {
       useEffect(() => {});
-      return storyFn({ args: { ...context.args, text: `story ${context.args.text}` } });
+      return storyFn({
+        args: { ...context.args, text: `story ${context.args.text}` },
+      });
     },
     // conditional decorator, runs before the above
     (storyFn: PartialStoryFn, context: StoryContext) =>
@@ -48,10 +57,10 @@ export const Hooks = {
         : (context.originalStoryFn as ArgsStoryFn)(context.args, context),
   ],
   args: {
-    text: 'text',
+    text: "text",
     condition: true,
   },
-  play: async ({ id, args }: PlayFunctionContext<any>) => {
+  play: async ({ id, args }: StoryContext) => {
     const channel = globalThis.__STORYBOOK_ADDONS_CHANNEL__;
     await channel.emit(RESET_STORY_ARGS, { storyId: id });
     await new Promise((resolve) => channel.once(STORY_ARGS_UPDATED, resolve));

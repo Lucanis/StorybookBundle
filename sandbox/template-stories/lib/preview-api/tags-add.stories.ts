@@ -1,10 +1,11 @@
-import { global as globalThis } from '@storybook/global';
-import type { PartialStoryFn, PlayFunctionContext, StoryContext } from '@storybook/types';
-import { within, expect } from '@storybook/test';
+import { global as globalThis } from "@storybook/global";
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
+import type { PartialStoryFn } from "storybook/internal/types";
+import { within, expect } from "storybook/test";
 
 export default {
   component: globalThis.Components.Pre,
-  tags: ['!dev', '!autodocs', '!test'],
+  tags: ["!dev", "!autodocs", "!test"],
   decorators: [
     (storyFn: PartialStoryFn, context: StoryContext) => {
       return storyFn({
@@ -16,24 +17,24 @@ export default {
 };
 
 export const Inheritance = {
-  tags: ['story-one'],
-  play: async ({ canvasElement }: PlayFunctionContext<any>) => {
+  tags: ["story-one"],
+  play: async ({ canvasElement }: StoryContext) => {
     const canvas = within(canvasElement);
-    await expect(JSON.parse(canvas.getByTestId('pre').innerText)).toEqual({
-      tags: ['story-one'],
+    await expect(JSON.parse(canvas.getByTestId("pre").innerText)).toEqual({
+      tags: ["story-one"],
     });
   },
   parameters: { chromatic: { disable: false } },
 };
 
 export const Dev = {
-  tags: ['dev'],
+  tags: ["dev"],
 };
 
 export const Autodocs = {
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export const Test = {
-  tags: ['test'],
+  tags: ["test"],
 };

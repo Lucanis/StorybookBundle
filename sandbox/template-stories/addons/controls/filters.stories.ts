@@ -1,5 +1,6 @@
-import { global as globalThis } from '@storybook/global';
-import type { PartialStoryFn, StoryContext } from '@storybook/types';
+import { global as globalThis } from "@storybook/global";
+import type { StoryContext } from "@sensiolabs/storybook-symfony-webpack5";
+import type { PartialStoryFn } from "storybook/internal/types";
 
 export default {
   component: globalThis.Components.Pre,
@@ -17,7 +18,7 @@ export default {
 export const IncludeList = {
   parameters: {
     controls: {
-      include: ['helloWorld'],
+      include: ["helloWorld"],
     },
   },
 };
@@ -33,7 +34,7 @@ export const IncludeRegex = {
 export const ExcludeList = {
   parameters: {
     controls: {
-      exclude: ['helloPlanet', 'helloWorld'],
+      exclude: ["helloPlanet", "helloWorld"],
     },
   },
 };
