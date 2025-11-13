@@ -29,7 +29,7 @@ const config: StorybookConfig = {
       // 👇 Here configure the framework
       symfony: {
         storybookCachePath: `var/cache/${process.env.APP_ENV}/storybook`,
-        server: "http://localhost:8000",
+        server: "http://localhost:8001",
         proxyPaths: ["/assets", "/_components"],
         additionalWatchPaths: ["assets"],
       },

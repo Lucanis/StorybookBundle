@@ -7,8 +7,8 @@ import { JSDOM } from 'jsdom';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 import isGlob from 'is-glob';
 import { glob } from 'glob';
-import { XMLParser } from 'fast-xml-parser';
 import crypto from 'crypto';
+import { XMLParser } from 'fast-xml-parser';
 
 var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
   get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
@@ -175,15 +175,15 @@ var DevPreviewCompilerPlugin = createUnplugin((options) => {
     webpack(compiler) {
       const v = new VirtualModulesPlugin();
       v.apply(compiler);
-      let previewHtml = "";
       compiler.hooks.watchRun.tapPromise(PLUGIN_NAME2, async () => {
-        previewHtml = await generateSymfonyPreview(server);
+        const hash = crypto.randomUUID();
         v.writeModule(
           "./symfony-preview.js",
           esm_default`
-                    export const symfonyPreview = {
-                        html: \`${previewHtml}\`,
-                    };`
+            export const symfonyPreview = {
+                hash: "${hash}",
+            };
+          `
         );
       });
       compiler.hooks.afterCompile.tap(PLUGIN_NAME2, (compilation) => {
@@ -201,6 +201,7 @@ var DevPreviewCompilerPlugin = createUnplugin((options) => {
           compilation
         ).afterTemplateExecution.tapPromise(PLUGIN_NAME2, async (params) => {
           try {
+            const previewHtml = await generateSymfonyPreview(server);
             params.html = injectPreviewHtml(previewHtml, params.html);
             return params;
           } catch (err) {

@@ -6,6 +6,7 @@ import { computeAdditionalWatchPaths } from "./computeAdditionalWatchPaths";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import { logger } from "storybook/internal/node-logger";
 import { injectPreviewHtml } from "./injectPreviewHtml";
+import crypto from "node:crypto";
 
 const PLUGIN_NAME = "dev-preview-plugin";
 
@@ -27,6 +28,7 @@ export const DevPreviewCompilerPlugin = createUnplugin<Options>((options) => {
     transformInclude(id) {
       return /storybook-config-entry\.js$/.test(id);
     },
+
     async transform(code) {
       return dedent`
         import { symfonyPreview } from './symfony-preview.js';
@@ -44,24 +46,23 @@ export const DevPreviewCompilerPlugin = createUnplugin<Options>((options) => {
         }
         `;
     },
+
     webpack(compiler) {
       // Virtual plugin for preview module
       const v = new VirtualModulesPlugin();
       v.apply(compiler);
 
-      let previewHtml = "";
-
-      // Compile preview before each compilation in watch mode
       compiler.hooks.watchRun.tapPromise(PLUGIN_NAME, async () => {
-        previewHtml = await generateSymfonyPreview(server);
+        const hash = crypto.randomUUID();
 
         // Write preview module
         v.writeModule(
           "./symfony-preview.js",
           dedent`
-                    export const symfonyPreview = {
-                        html: \`${previewHtml}\`,
-                    };`
+            export const symfonyPreview = {
+                hash: "${hash}",
+            };
+          `
         );
       });
 
@@ -83,6 +84,7 @@ export const DevPreviewCompilerPlugin = createUnplugin<Options>((options) => {
           compilation
         ).afterTemplateExecution.tapPromise(PLUGIN_NAME, async (params) => {
           try {
+            const previewHtml = await generateSymfonyPreview(server);
             params.html = injectPreviewHtml(previewHtml, params.html);
             return params;
           } catch (err) {
